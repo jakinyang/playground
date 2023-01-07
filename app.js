@@ -5,57 +5,130 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 function Home({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Home screen</Text>
       <Button
-        title="Go to Profile"
-        onPress={() => navigation.navigate('Profile')}
+        title="Go to Resource Index"
+        onPress={() => navigation.navigate('ResourceIndex')}
+      />
+      <Button
+        title="Go to Profile Tab"
+        onPress={() => navigation.navigate('ProfileTab')}
       />
     </View>
   );
 }
 
-function Profile({ navigation }) {
+function ResourceIndex({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: "lightcoral", height: "90%" }}>
       <Text>Profile screen</Text>
       <Button
-        title="Go to Settings"
-        onPress={() => navigation.navigate('Settings')}
+        title="Go to Article 1"
+        onPress={() => navigation.navigate('ResourceOne')}
+      />
+      <Button
+        title="Go to Article 2"
+        onPress={() => navigation.navigate('ResourceTwo')}
+      />
+      <Button
+        title="Go to Article 3"
+        onPress={() => navigation.navigate('ResourceThree')}
       />
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
 
-function Settings({ navigation }) {
+function ResourceOne({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings screen</Text>
+    <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: "lightseagreen", height: "90%" }}>
+      <Text>Resource 1</Text>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
+
+function ResourceTwo({ navigation }) {
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: "lightblue", height: "90%" }}>
+      <Text>Resource 2</Text>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
+
+function ResourceThree({ navigation }) {
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: "lightgreen", height: "90%" }}>
+      <Text>Resource 3</Text>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
+
+function ProfileTab({ navigation }) {
+  return (
+    <View style={{ width: "70%", height: "100%", alignSelf: "flex-end", justifyContent: 'center', alignItems: 'center', backgroundColor: "lightpink" }}>
+      <Text>Profile Tab</Text>
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function MyStack() {
   return (
     <Stack.Navigator>
+    
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
+      <Stack.Screen 
+        name="ProfileTab" 
+        component={ProfileTab}
         options={{
-          cardStyle: { height: '50%', top: '50%'},
           title: 'Profile',
+          cardStyle: {
+            ...TransitionPresets.SlideFromRightIOS
+          },
+        }}
+         />
+    
+      <Stack.Screen
+        name="ResourceIndex"
+        component={ResourceIndex}
+        options={{
+          title: 'Resources',
+          cardStyle: {alignSelf: 'center', height: "90%", width: "90%", top: "10%", borderRadius: 20},
           ...TransitionPresets.ModalSlideFromBottomIOS,
         }}
       />
-      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen 
+        name="ResourceOne" 
+        component={ResourceOne} 
+        options={
+          { cardStyle: { alignSelf: 'center',height: "90%", width: "90%", top: "10%", borderRadius: 20}}
+          }
+        />
+      <Stack.Screen 
+        name="ResourceTwo" 
+        component={ResourceTwo} 
+        options={
+          { cardStyle: { alignSelf: 'center',height: "90%", width: "90%", top: "10%", borderRadius: 20}}
+          }
+        />
+      <Stack.Screen 
+        name="ResourceThree" 
+        component={ResourceThree} 
+        options={
+          { cardStyle: { alignSelf: 'center',height: "90%", width: "90%", top: "10%", borderRadius: 20}}
+          }
+        />
     </Stack.Navigator>
   );
 }
@@ -63,7 +136,7 @@ function MyStack() {
 export default function App() {
   return (
     <NavigationContainer>
-      <MyStack />
+      <MyStack style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}/>
     </NavigationContainer>
   );
 }
